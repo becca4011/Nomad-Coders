@@ -1,0 +1,15 @@
+body
+{
+    color: coral;
+}
+
+.form,
+.greetings
+{
+    display: none;
+}
+
+.showing
+{
+    display: block;
+}
