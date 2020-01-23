@@ -4,23 +4,64 @@
     <head>
         <title>Momentum</title>
         <link rel="stylesheet" href="Momentum.css" />
+        <style>
+            input
+            {
+                width: 100%;
+                height: 30pt;
+                color: white;
+                font-size: 15pt;
+
+                border: none;
+                outline: none;
+                background: transparent;
+            }
+            ul
+            {
+                display: inline-block;
+                text-align: left;
+                font-size: 15pt;
+            }
+            button
+            {
+                border: none;
+                outline: none;
+                background: transparent;
+
+                padding-left: 10pt;
+                color:red;
+                font-weight: bold;
+                font-size: 15pt;
+            }
+        </style>
     </head>
     <body>
+        <center>
         <div class="js-clock">
+            <br>
             <h1>00:00</h1>
         </div>
+
         <form class="js-form form showing">
             <input type="text" placeholder="What is your name?">
         </form>
-        <h4 class="js-greetings greetings"></h4>
+
+        <h4 id="title" class="js-greetings greetings"></h4>
+
         <form class="js-toDoForm">
             <input type="text" placeholder="Write a to do" />
         </form>
-        <ul class="js-toDoList">
+        
+        <ul class="js-toDoList"></ul><br>
 
-        </ul>
+        <span class="js-weather"></span>
+        </center>
+
         <script src="clock.js"></script>
         <script src="name.js"></script>
         <script src="todo.js"></script>
+        <script src="bg.js"></script>
+        <script src="weather.js"></script>
+        <script src="color.js"></script>
     </body>
 </html>

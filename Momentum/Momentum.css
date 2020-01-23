@@ -1,6 +1,32 @@
 body
 {
-    color: navy;
+    color: white;
+    background-color: rebeccapurple;
+    font-family: KoPubWorld돋움체_Pro;
+
+}
+
+.js-clock
+{
+    font-size:40pt;
+}
+
+input::placeholder
+{
+    color: white;
+    font-size: 15pt;
+}
+
+.js-form,
+.js-toDoForm
+{
+    border-bottom: 3px solid white;
+    width: 20%;
+}
+
+.js-greetings
+{
+    font-size:30pt;
 }
 
 .form,
@@ -12,4 +38,43 @@ body
 .showing
 {
     display: block;
+}
+
+@keyframes fadeIn
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 1;
+    }
+}
+
+.bgImage
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    animation: fadeIn .5s linear;
+}
+
+.js-greetings
+{
+    cursor: pointer;
+}
+
+h4
+{
+    color:white;
+    transition: color 0.5s ease-in-out;
+}
+
+.clicked
+{
+    color: #5050ff;
 }
