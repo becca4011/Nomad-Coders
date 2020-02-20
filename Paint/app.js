@@ -4,6 +4,7 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const btnmode = document.getElementById("jsMode");
 const saveBtn = document.getElementById("jsSave");
+const figureBtn = document.getElementById("jsFigure");
 
 const DEFAULT_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 700;
@@ -24,6 +25,9 @@ ctx.fillStyle = DEFAULT_COLOR;
 
 let painting = false;
 let filling = false;
+
+let fillRectangle = true;
+let strokeRectangle = true;
 
 function stopPainting()
 {
@@ -82,7 +86,7 @@ function clickMode()
     }
 }
 
-function clickCanvas()
+function clickCanvas(event)
 {
     if(filling)
     {
@@ -104,6 +108,39 @@ function clickSaveBtn()
     link.click();
 }
 
+function clickFigure()
+{
+    if(fillRectangle === true)
+    {
+        fillRectangle = false;
+        strokeRectangle = true;
+
+        figureBtn.innerText = "Rect(□)";
+    }
+    else if(strokeRectangle === true)
+    {
+        strokeRectangle = false;
+        fillRectangle = true;
+
+        figureBtn.innerText = "Rect(■)";
+    }
+}
+
+function figure(click)
+{
+    const x = event.offsetX;
+    const y = event.offsetY;
+
+    if(fillRectangle === false && strokeRectangle === true)
+    {
+        ctx.fillRect(x, y, 50, 50);
+    }
+    else if(strokeRectangle === false && fillRectangle === true)
+    {
+        ctx.strokeRect(x, y, 50, 50);
+    }
+} 
+
 if(canvas)
 {
     canvas.addEventListener("mousemove", onMouseMove); //마우스를 움직일 때
@@ -112,6 +149,7 @@ if(canvas)
     canvas.addEventListener("mouseleave", stopPainting); //마우스가 캔버스를 벗어닜을 때
     canvas.addEventListener("click", clickCanvas); //캔버스를 클릭했을 때
     canvas.addEventListener("contextmenu", rightClick); //우클릭을 했을 때 나오는 메뉴(저장, 복사)
+    canvas.addEventListener("click", figure);
 }
 
 Array.from(colors).forEach(color => color.addEventListener("click", clickColor));
@@ -129,4 +167,9 @@ if(btnmode)
 if(saveBtn)
 {
     saveBtn.addEventListener("click", clickSaveBtn);
+}
+
+if(figureBtn)
+{
+    figureBtn.addEventListener("click", clickFigure);
 }
