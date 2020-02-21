@@ -4,7 +4,8 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const btnmode = document.getElementById("jsMode");
 const saveBtn = document.getElementById("jsSave");
-const figureBtn = document.getElementById("jsFigure");
+const rectBtn = document.getElementById("jsRect");
+const circleBtn = document.getElementById("jsCircle");
 
 const DEFAULT_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 700;
@@ -19,15 +20,18 @@ ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
 /*선의 색과 굵기(default)*/
 ctx.strokeStyle = DEFAULT_COLOR;
-ctx.lineWidth = 2.5;
+ctx.lineWidth = 3.0;
 
 ctx.fillStyle = DEFAULT_COLOR;
 
 let painting = false;
 let filling = false;
 
-let fillRectangle = true;
-let strokeRectangle = true;
+let fillRectangle = false;
+let strokeRectangle = false;
+
+let fillCircle = false;
+let strokeCircle = false;
 
 function stopPainting()
 {
@@ -108,21 +112,51 @@ function clickSaveBtn()
     link.click();
 }
 
-function clickFigure()
+function clickRect()
 {
-    if(fillRectangle === true)
+    if(fillRectangle === true && strokeRectangle === false)
     {
         fillRectangle = false;
         strokeRectangle = true;
 
-        figureBtn.innerText = "Rect(□)";
+        rectBtn.innerText = "Rect";
     }
-    else if(strokeRectangle === true)
+    else if(strokeRectangle === true && fillRectangle === false)
     {
         strokeRectangle = false;
-        fillRectangle = true;
 
-        figureBtn.innerText = "Rect(■)";
+        rectBtn.innerText = "Rect(■)";
+    }
+    else
+    {
+        fillRectangle = true;
+        strokeRectangle = false;
+
+        rectBtn.innerText = "Rect(□)";
+    }
+}
+
+function clickCircle()
+{
+    if(fillCircle === true && strokeCircle === false)
+    {
+        fillCircle = false;
+        strokeCircle = true;
+
+        circleBtn.innerText = "Circle";
+    }
+    else if(strokeCircle === true && fillCircle === false)
+    {
+        strokeCircle = false;
+
+        circleBtn.innerText = "Circle(●)";
+    }
+    else
+    {
+        fillCircle = true;
+        strokeCircle = false;
+
+        circleBtn.innerText = "Circle(○)";
     }
 }
 
@@ -131,13 +165,26 @@ function figure(click)
     const x = event.offsetX;
     const y = event.offsetY;
 
-    if(fillRectangle === false && strokeRectangle === true)
+    ctx.beginPath();
+
+    if(fillRectangle === true && strokeRectangle === false)
     {
-        ctx.fillRect(x, y, 50, 50);
+        ctx.fillRect(x - 25, y - 25, 50, 50); //마우스 커서의 중간에 도형이 위치하도록 함
     }
-    else if(strokeRectangle === false && fillRectangle === true)
+    else if(strokeRectangle === true && fillRectangle === false)
     {
-        ctx.strokeRect(x, y, 50, 50);
+        ctx.strokeRect(x - 25, y - 25, 50, 50);
+    }
+
+    if(fillCircle === true && strokeCircle === false)
+    {
+        ctx.arc(x, y, 25, 0, Math.PI * 2, true);
+        ctx.fill();
+    }
+    else if(strokeCircle === true && fillCircle === false)
+    {
+        ctx.arc(x, y, 25, 0, Math.PI * 2, true);
+        ctx.stroke();
     }
 } 
 
@@ -169,7 +216,12 @@ if(saveBtn)
     saveBtn.addEventListener("click", clickSaveBtn);
 }
 
-if(figureBtn)
+if(rectBtn)
 {
-    figureBtn.addEventListener("click", clickFigure);
+    rectBtn.addEventListener("click", clickRect);
+}
+
+if(circleBtn)
+{
+    circleBtn.addEventListener("click", clickCircle);
 }

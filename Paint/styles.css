@@ -50,7 +50,7 @@ body
 
     text-transform: uppercase;
     font-weight: 800;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .controls__btns button:active /*버튼 누를 때 효과*/
