@@ -6,6 +6,7 @@ const btnmode = document.getElementById("jsMode");
 const saveBtn = document.getElementById("jsSave");
 const rectBtn = document.getElementById("jsRect");
 const circleBtn = document.getElementById("jsCircle");
+const sgBtn = document.getElementById("jsSandglass");
 
 const DEFAULT_COLOR = "#2c2c2c";
 const CANVAS_SIZE = 700;
@@ -32,6 +33,9 @@ let strokeRectangle = false;
 
 let fillCircle = false;
 let strokeCircle = false;
+
+let horSandglass = false;
+let verSandglass = false;
 
 function stopPainting()
 {
@@ -81,12 +85,12 @@ function clickMode()
     if(filling === true)
     {
         filling = false;
-        btnmode.innerText = "Fill";
+        btnmode.innerText = "채우기";
     }
     else
     {
         filling = true;
-        btnmode.innerText = "Paint";
+        btnmode.innerText = "그리기";
     }
 }
 
@@ -119,20 +123,20 @@ function clickRect()
         fillRectangle = false;
         strokeRectangle = true;
 
-        rectBtn.innerText = "Rect";
+        rectBtn.innerText = "사각형";
     }
     else if(strokeRectangle === true && fillRectangle === false)
     {
         strokeRectangle = false;
 
-        rectBtn.innerText = "Rect(■)";
+        rectBtn.innerText = "사각형(■)";
     }
     else
     {
         fillRectangle = true;
         strokeRectangle = false;
 
-        rectBtn.innerText = "Rect(□)";
+        rectBtn.innerText = "사각형(□)";
     }
 }
 
@@ -143,20 +147,44 @@ function clickCircle()
         fillCircle = false;
         strokeCircle = true;
 
-        circleBtn.innerText = "Circle";
+        circleBtn.innerText = "원";
     }
     else if(strokeCircle === true && fillCircle === false)
     {
         strokeCircle = false;
 
-        circleBtn.innerText = "Circle(●)";
+        circleBtn.innerText = "원(●)";
     }
     else
     {
         fillCircle = true;
         strokeCircle = false;
 
-        circleBtn.innerText = "Circle(○)";
+        circleBtn.innerText = "원(○)";
+    }
+}
+
+function clickSg()
+{
+    if(horSandglass === true && verSandglass === false)
+    {
+        horSandglass = false;
+        verSandglass = true;
+
+        sgBtn.innerText = "모래시계";
+    }
+    else if(verSandglass === true && horSandglass === false)
+    {
+        verSandglass = false;
+
+        sgBtn.innerText = "모래시계(가로)";
+    }
+    else
+    {
+        horSandglass = true;
+        verSandglass = false;
+
+        sgBtn.innerText = "모래시계(세로)";
     }
 }
 
@@ -185,6 +213,26 @@ function figure(click)
     {
         ctx.arc(x, y, 25, 0, Math.PI * 2, true);
         ctx.stroke();
+    }
+
+    if(horSandglass === true && verSandglass === false)
+    {
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + 50, y + 50);
+        ctx.lineTo(x + 50, y);
+        ctx.lineTo(x, y + 50);
+        ctx.lineTo(x, y);
+        ctx.fill();
+
+    }
+    else if(verSandglass === true && horSandglass === false)
+    {
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + 50, y + 50);
+        ctx.lineTo(x, y + 50);
+        ctx.lineTo(x + 50, y);
+        ctx.lineTo(x, y);
+        ctx.fill();
     }
 } 
 
@@ -224,4 +272,9 @@ if(rectBtn)
 if(circleBtn)
 {
     circleBtn.addEventListener("click", clickCircle);
+}
+
+if(sgBtn)
+{
+    sgBtn.addEventListener("click", clickSg);
 }
