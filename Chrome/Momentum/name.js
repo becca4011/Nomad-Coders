@@ -5,6 +5,9 @@ const form = document.querySelector(".js-form"),
 const USER_LS = "currentUser",
       SHOWING_ON = "showing";
 
+const date = new Date();
+const hour = date.getHours();
+
 
 function saveName(text) //이름 저장
 {
@@ -29,7 +32,23 @@ function paint(text)
 {
     form.classList.remove(SHOWING_ON);
     greeting.classList.add(SHOWING_ON);
-    greeting.innerText = `Hello ${text}`;
+
+    if(hour >= 6 && hour < 12)
+    {
+        greeting.innerText = `Good Morning, ${text}`;
+    }
+    else if(hour >= 12 && hour < 18)
+    {
+        greeting.innerText = `Good Afternoon, ${text}`;
+    }
+    else if(hour >= 18 && hour < 24)
+    {
+        greeting.innerText = `Good Evening, ${text}`;
+    }
+    else
+    {
+        greeting.innerText = `Good Night, ${text}`;
+    }
 }
 
 function loadName()
